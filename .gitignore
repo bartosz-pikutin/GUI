@@ -1,0 +1,28 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Kompilacja
+/out/
+build/
+target/
+
+# Pliki systemowe
+.DS_Store
+Thumbs.db
+
+# Logi i inne śmieci
+*.log
+*.class
+
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Maven
+.mvn/
+settings.xml
+
+# Pliki tymczasowe
+*.tmp
+*.swp
