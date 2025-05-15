@@ -28,3 +28,15 @@ public class S24819 {
 enum dataType{
     Int,Double,Person,MyColor, Car, Smth;
 }
+
+enum collectionType {
+    ARRAYLIST, LINKEDLIST, HASHSET, TREESET;
+}
+
+enum testType {
+    INDEX, DELADDFREQ, FIND, EXISTS;
+}
+
+enum dataPresentation {
+    CLI, CSV;
+}
