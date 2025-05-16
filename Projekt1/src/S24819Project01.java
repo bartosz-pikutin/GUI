@@ -226,15 +226,33 @@ class CollectionUtils {
     public static long measureMultipleContains(Collection<Object> collection, List<?> data, int repetitions) {
         Random rand = new Random();
         long start = System.nanoTime();
+
         for (int i = 0; i < repetitions; i++) {
-            Object query = (i % 2 == 0)
-                    ? data.get(rand.nextInt(data.size()))  // istniejące
-                    : new Object();                         // nieistniejące
+            Object query;
+            if (i % 2 == 0) {
+                // Istniejący element
+                query = data.get(rand.nextInt(data.size()));
+            } else {
+                // Tworzymy element tego samego typu, który na pewno nie istnieje
+                Object sample = data.get(0);
+                if (sample instanceof Integer) {
+                    query = Integer.MIN_VALUE;
+                } else if (sample instanceof Double) {
+                    query = Double.NaN;
+                } else if (sample instanceof Person) {
+                    query = new Person(1800, "ZZZZZZZZZZZZZZ");
+                } else if (sample instanceof MyColor) {
+                    query = new MyColor(999, 999, 999);
+                } else {
+                    continue;
+                }
+            }
             collection.contains(query);
         }
+
         return System.nanoTime() - start;
-        //w ten sposób raz sprawdza istniejące dane, a raz których nie ma w zbiorze
     }
+
 }
 
 
@@ -253,6 +271,7 @@ class IndexTester implements CollectionTester {
         result.addTime = CollectionUtils.measureAdd(collection, data);
 
         if (!(collection instanceof List<?> list)) {
+
             throw new UnsupportedOperationException("INDEX test not supported for " + collection.getClass().getSimpleName());
         }
 
